@@ -14,7 +14,11 @@ namespace School.Tests
             // Arrange
             Classroom[] classrooms = new Classroom[]
             {
-                new Classroom(Subject.Math, new IPerson[] { new Teacher(), new Student() { Gpa = 4.0 }, new Student() { Gpa = 3.0 } }),
+                new Classroom(Subject.Math, new IPerson[] {
+                        new Teacher(),
+                        new Student() { Gpa = 4.0 },
+                        new Student() { Gpa = 3.0 }
+                    }),
             };
             SchoolStatCalculator calculator = new SchoolStatCalculator(classrooms);
 

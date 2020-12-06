@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using System.Linq;
 using BetterCSharp.Complexity.School.People;
 
 namespace BetterCSharp.Complexity.School
@@ -15,40 +16,19 @@ namespace BetterCSharp.Complexity.School
 
         public double GetAverageGpa(Subject subject)
         {
-            double gpa = 0;
-            int count = 0;
-            bool subjectFound = false;
-            Classroom foundClassroom = null;
+            Classroom classroom = _classrooms.FirstOrDefault(c => c.Subject == subject);
 
-            foreach (var classroom in _classrooms)
-            {
-                if (classroom.Subject == subject)
-                {
-                    subjectFound = true;
-                    foundClassroom = classroom;
-
-                    foreach (var person in classroom)
-                    {
-                        if (person is Student)
-                        {
-                            count++;
-                            gpa += ((Student)person).Gpa;
-                        }
-                    }
-                }
-            }
-
-            if (!subjectFound)
+            if (classroom == null)
             {
                 throw new MissingSubjectException(subject);
             }
 
-            if (count == 0)
+            if (!classroom.Any())
             {
-                throw new EmptyClassroomException(foundClassroom);
+                throw new EmptyClassroomException(classroom);
             }
 
-            return gpa / count;
+            return classroom.OfType<Student>().Average(s => s.Gpa);
         }
     }
 

@@ -6,6 +6,7 @@ using BetterCSharp.Complexity.School.People;
 namespace BetterCSharp.Complexity.School
 {
     public enum Subject { Math, Reading, SocialStudies, Science };
+
     public class Classroom : IEnumerable<IPerson>
     {
         public Subject Subject { get; set; }
